@@ -1,0 +1,186 @@
+<html>
+        <head>
+                <title>Retriever Download</title>
+                <style type="text/css" >
+                        #header{
+                                background:rgb(185,24,45);
+                                padding-bottom:20px;
+                                color:#fff;
+                                font-family:Arial;
+                                font-size:60pt;
+                                text-align:center;
+                        }
+                        ol{
+                                list-style:none;
+								font-family:Arial;
+                        }
+                        li,a{
+                                font-family:Arial;
+                                font-size:40pt;
+                                list-style:none;
+                        }
+                        li{
+                                margin-bottom: 40px;
+								font-family:Arial;
+                        }
+                        div.ProductDetails{
+                                margin:20px 0px 0px 40px;
+								font-family:Arial;
+                        }
+                        span.osTitle{/* platform title */
+								font-family:Arial;
+                                font-weight:bold;
+                                border-bottom: 2px solid rgb(185,24,45);
+                                display:block;
+                                margin:20px 0 30px 0;
+                        }
+                        span.ver{
+								-webkit-border-radius: 28;
+								-moz-border-radius: 28;
+								border-radius: 28px;
+                                background: rgb(185,24,45);
+								font-family:Arial;
+                                font-size: 24pt;
+                                color:white;
+                                padding: 10px 20px 10px 20px;
+                        }
+                        #downloadNotice{
+								font-family:Arial;
+                                font-weight:bold;
+                        }
+						.btn {
+							-webkit-border-radius: 28;
+							-moz-border-radius: 28;
+							border-radius: 28px;
+							font-family: Arial;
+							color: #ffffff;
+							font-size: 40px;
+							background: #ba182e;
+							padding: 10px 20px 10px 20px;
+							border: solid #000000 2px;
+							text-decoration: none;
+						}
+						.btn:hover {
+							background: #ffffff;
+							color: #000000;
+							text-decoration: none;
+						}
+                </style>
+                <script type="text/javascript" >
+                        /*
+                                auto navigates to the link were the title attr is contained in the user-agent
+                                search for the elements at document dom level or the dom thats passed in
+                        */
+                        function getLinks(doc){
+                                return ((typeof(doc) == 'undefined')?document:doc).getElementsByTagName("a");
+                        }
+                        function getPlatformMenus(){
+                                return document.getElementsByClassName("platform");
+                        }
+                        /*
+                                searches in the user agent for the title tag of each link
+								@returns array of links
+                        */
+                        function findTargetMatch(){
+                                ua=navigator.userAgent.toLowerCase();
+                                links=getLinks();
+								matchingLinks=new Array();
+
+                                for(l in links){
+                                        if(ua.indexOf(links[l].title)>0){
+                                                debug_msg("found:" +links[l].title);
+                                                matchingLinks.push(links[l].href);
+                                        }
+                                }
+                                return matchingLinks;
+                        }
+                        /*
+                         hides all links that do not have the given url
+                        */
+                        function hideNonMatching(url){
+                                platforms=getPlatformMenus();
+                                for(i=0;i<platforms.length;i++){
+                                        links=getLinks(platforms[i]);
+                                        visableCount=links.length;
+
+                                        for(l=0;l< links.length;l++){
+												//should work for string and array
+                                                if(url.indexOf(links[l].href) == -1){
+                                                        links[l].parentNode.style.display="none";
+
+                                                        visableCount--;
+                                                }
+                                        }
+                                        //if no links a visible hide the category header
+                                        if(visableCount <=0)
+                                                platforms[i].style.display="none";
+                                }
+                        }
+                        function redirect(url){
+                                location.replace(url);
+                        }
+                        function debug_msg(msg){
+                                if( location.hash!="#debug" )
+                                        return;
+
+                                var e=document.getElementById("msg");
+                                e.innerHTML=e.innerHTML+"<br>"+msg;
+                        }
+                        function run(){
+                                //find a link where the title matches our platform
+                                links=findTargetMatch();
+
+                                if(links.length > 0){
+                                        //hide all other links as a matching platform was found
+                                        hideNonMatching(links);
+                                        //document.getElementById("downloadNotice").style.display="";
+                                        //redirect(link);
+                                }
+
+                                debug_msg(navigator.userAgent.toLowerCase());
+                        }
+                </script>
+        </head>
+        <body onload="run()" >
+                <div id="header" >
+                        Retriever Barking Downloads
+                </div>
+                <div class="ProductDetails" >
+                        <span class="ver">Version 46.12.0</span>
+                </div>
+                <ul id="iList" >
+
+                        <li class="platform" >
+                                <span class="osTitle" >Android</span>
+                                <ol>
+										<li>Click the <a href="https://s3-ap-southeast-2.amazonaws.com/files-testau.retriever.net/rse11tau/barking-android.apk" title="android" class="btn">Download</a> button to start the application download<li>
+                                </ol>
+                        </li>
+						
+						<li class="platform" >
+                                <span class="osTitle" >Android - CT50</span>
+                                <ol>
+										<li>Click the <a href="https://s3-ap-southeast-2.amazonaws.com/files-testau.retriever.net/rse11tau/barking-ct50.apk" title="android" class="btn">Download</a> button to start the application download [CT50]<li>
+                                </ol>
+                        </li>
+
+                        <li class="platform" >
+                                <span class="osTitle" >Windows</span>
+                                <ol>
+										<li>Click the <a href="https://s3-ap-southeast-2.amazonaws.com/files-testau.retriever.net/rse11tau/barking-win32.exe" title="windows" class="btn">Download</a> button to start the application download<li>
+                                </ol>
+                        </li>
+
+                        <li class="platform" >
+                                <span class="osTitle" >iOS</span>
+                                <ol>
+										<li>Click the <a href="itms-services://?action=download-manifest&url=https://s3-ap-southeast-2.amazonaws.com/files-testau.retriever.net/rse11tau/barking-iphone.plist" title="iphone" class="btn">Download</a> button to start the iPhone application download<li>
+										<li>Click the <a href="itms-services://?action=download-manifest&url=https://s3-ap-southeast-2.amazonaws.com/files-testau.retriever.net/rse11tau/barking-ipad.plist" title="ipad" class="btn">Download</a> button to start the iPad application download<li>
+                                </ol>
+                        </li>
+                </ul>
+                <div id="msg" >
+
+                </div>
+        </body>
+</html>
